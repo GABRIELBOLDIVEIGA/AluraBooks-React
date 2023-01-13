@@ -1,14 +1,20 @@
 import Logo from "../Logo/index.js";
-import OpcoesHeader from "../OpcoesHeader/index.js"
-import IconesHeader from "../IconesHeader/index.js"
-import "./estilo.css"
+import OpcoesHeader from "../OpcoesHeader/index.js";
+import IconesHeader from "../IconesHeader/index.js";
+import styled from "styled-components";
+
+const HeaderContainer = styled.header`
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+`;
 
 export default function Header() {
     return (
-        <header className="App-header">
+        <HeaderContainer>
             <Logo />
             <OpcoesHeader />
             <IconesHeader />
-        </header>
+        </HeaderContainer>
     );
 }
