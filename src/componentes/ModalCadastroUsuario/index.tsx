@@ -5,7 +5,12 @@ import imagemPrincipal from "./assets/login.png";
 
 import "./ModalCadastroUsuario.css";
 
-const ModalCadastroUsuario = () => {
+interface PropModaCadastroUsuario {
+    aoFechar: () => void;
+    aberta: boolean;
+}
+
+const ModalCadastroUsuario = ({aberta, aoFechar}: PropModaCadastroUsuario) => {
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [endereco, setEndereco] = useState("");
@@ -15,34 +20,35 @@ const ModalCadastroUsuario = () => {
     const [senhaConfirmada, setSenhaConfirmada] = useState("");
 
     const aoSubmeterFormular = (evento: React.FormEvent<HTMLFormElement>) => {
-        evento.preventDefault();
+        evento.preventDefault()
         const usuario = {
             nome,
             email,
             senha,
             endereco,
             cep,
-            complemento,
-        };
-        axios.post("POST http://localhost:8000/public/registrar", usuario).then(() => {
-            alert("Usuário foi cadastrado com sucesso!");
-            setNome("");
-            setEmail("");
-            setEndereco("");
-            setComplemento("");
-            setCep("");
-            setSenha("");
-            setSenhaConfirmada("");
-        }).catch(() => {
-            alert("Ops, algo de errado não esta certo...")
-        })
+            complemento
+        }
 
-        console.log(usuario);
-        alert("Usuário foi cadastrado com sucesso!");
-    };
+        axios.post('http://localhost:8000/public/registrar', usuario)
+            .then(() => {
+                alert('Usuário foi cadastrado com sucesso!')
+                setNome('')
+                setEmail('')
+                setEndereco('')
+                setComplemento('')
+                setCep('')
+                setSenha('')
+                setSenhaConfirmada('')
+                aoFechar()
+            })
+            .catch(() => {
+                alert('OPS! Alguma coisa deu errado!')
+            })
+    }
 
     return (
-        <AbModal titulo="Cadastrar" aberta={true} aoFechar={() => console.log("fecha ai")}>
+        <AbModal titulo="Cadastrar" aberta={aberta} aoFechar={aoFechar}>
             <section className="corpoModalCadastro">
                 <figure>
                     <img src={imagemPrincipal} alt="Pessoa segurando uma chave na frente de uma tela de computador que está exibindo uma fechadura" />
