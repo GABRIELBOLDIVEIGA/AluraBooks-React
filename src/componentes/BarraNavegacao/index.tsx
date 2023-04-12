@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BotaoNavegacao from "../BotaoNavegacao";
 import ModalCadastroUsuario from "../ModalCadastroUsuario";
 import logo from "./assets/logo.png";
@@ -10,8 +10,9 @@ import ModalLoginUsuario from "../ModalLoginUsuario";
 const BarraNavegacao = () => {
     const [modalCadastroAberta, setModalCadastroAberta] = useState(false);
     const [modalLoginAberta, setModalLoginAberta] = useState(false);
-
     const [usuarioEstaLogado, setUsuarioEstaLogado] = useState<boolean>();
+    
+    let navigate = useNavigate();
 
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -22,6 +23,12 @@ const BarraNavegacao = () => {
         setModalLoginAberta(false);
         setUsuarioEstaLogado(true);
     };
+
+    const efetuarLogout = () => {
+        setUsuarioEstaLogado(false);
+        sessionStorage.removeItem("token");
+        navigate("/");
+    }
 
     return (
         <nav className="ab-navbar">
@@ -70,6 +77,9 @@ const BarraNavegacao = () => {
                 <ul>
                     <li>
                         <Link to="/minha-conta/pedidos">Minha conta</Link>
+                    </li>
+                    <li>
+                        <BotaoNavegacao texto="LogOut" textoAltSrc="Icone representando um usuário" imagemSrc={usuario} onClick={() => {efetuarLogout()}}/>
                     </li>
                 </ul>
             )}
