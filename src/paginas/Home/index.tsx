@@ -15,6 +15,9 @@ const Home = () => {
 
     const { data: lancamentos } = useQuery(['destaques'], () => obterLivrosDestaque('lancamentos'))
     const { data: maisVendidos } = useQuery(['maisVendidos'], () => obterLivrosDestaque('mais-vendidos'))
+
+    console.log(lancamentos)
+
     return (<section className="home">
         <Banner subtitulo="Encontre em nossa estante o que precisa para seu desenvolvimento!" titulo="Já sabe por onde começar?">
             <form className="buscar">

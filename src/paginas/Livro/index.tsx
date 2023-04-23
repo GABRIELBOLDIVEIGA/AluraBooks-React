@@ -1,11 +1,12 @@
-import { AbBotao, AbGrupoOpcao, AbGrupoOpcoes, AbInputQuantidade } from "ds-alurabooks";
+import { AbBotao, AbGrupoOpcao, AbGrupoOpcoes, AbInputQuantidade, AbTag } from "ds-alurabooks";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import TituloPrincipal from "../../componentes/TituloPrincipal";
 import { formatador } from "../../utils/formatador-moeda";
 import "./Livro.css";
 import { useLivro } from "../../graphQL/livros/hooks";
-
+import Loader from "../../componentes/Loader";
+import BlocoSobre from "../../componentes/BlocoSobre";
 
 const Livro = () => {
     const params = useParams();
@@ -13,7 +14,7 @@ const Livro = () => {
     const [opcao, setOpcao] = useState<AbGrupoOpcao>();
     const [quantidade, setQuantidade] = useState(0);
 
-    const { data } = useLivro(params.slug || "");
+    const { data, loading, error } = useLivro(params.slug || "");
 
     const opcoes: AbGrupoOpcao[] = data?.livro.opcoesCompra
         ? data?.livro.opcoesCompra.map((opcao) => ({
@@ -23,6 +24,14 @@ const Livro = () => {
               rodape: opcao.formatos ? opcao.formatos.join(",") : "",
           }))
         : [];
+
+    if (loading) {
+        return <Loader />;
+    }
+
+    if (error) {
+        return <h1>Ops! Algo de errado não esta certo...</h1>
+    }
 
     return (
         <section className="livro-detalhe">
@@ -44,13 +53,20 @@ const Livro = () => {
                         </p>
                         <footer>
                             <div className="qtdContainer">
-                                <AbInputQuantidade onChange={setQuantidade} />
+                                <AbInputQuantidade onChange={() => {}} value={0} />
                             </div>
                             <div>
                                 <AbBotao texto="Comprar" />
                             </div>
                         </footer>
                     </div>
+                </div>
+                <div>
+                    <BlocoSobre titulo="Sobre o Autor" corpo={data?.livro.autor.sobre} />
+                    <BlocoSobre titulo="Sobre o Livro" corpo={data?.livro.sobre} />
+                </div>
+                <div>
+                    {data?.livro.tags.map(tag => <AbTag contexto="secundario" key={tag.nome} texto={tag.nome} />)}
                 </div>
             </div>
         </section>
