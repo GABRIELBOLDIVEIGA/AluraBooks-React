@@ -2,9 +2,9 @@ import "./ListaLivros.css";
 import CardLivro from "../CardLivro";
 import { ICategoria } from "../../interfaces/ICategoria";
 import { AbBotao, AbCampoTexto } from "ds-alurabooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLivros } from "../../graphQL/livros/hooks";
-import { livrosVar } from "../../graphQL/livros/state";
+import { filtroDeLivrosVar, livrosVar } from "../../graphQL/livros/state";
 import { useReactiveVar } from "@apollo/client";
 
 interface ListaLivrosProps {
@@ -14,25 +14,30 @@ interface ListaLivrosProps {
 const ListaLivros = ({ categoria }: ListaLivrosProps) => {
     const [textoBusca, setTextoBusca] = useState("");
 
-    /* const {  data,  refetch } = */ useLivros(categoria);
+    useEffect(() => {
+        filtroDeLivrosVar({
+            ...filtroDeLivrosVar(),
+            titulo: textoBusca.length >= 3 ? textoBusca : "",
+        });
+
+        if(textoBusca.length >= 3) {
+            console.log("definir o titulo")
+        }
+
+    },[textoBusca])
+
+    filtroDeLivrosVar({
+        ...filtroDeLivrosVar(),
+        categoria: categoria,
+    });
 
     const livros = useReactiveVar(livrosVar);
-    console.log("Livros => ", livros);
 
-    const buscarLivros = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        if (textoBusca) {
-            // refetch({
-            //     categoriaId: categoria.id,
-            //     titulo: textoBusca,
-            // });
-        }
-    };
+    useLivros();
 
     return (
         <section>
-            <form onSubmit={buscarLivros} style={{ maxWidth: "80%", margin: "0 auto", textAlign: "center" }}>
+            <form style={{ maxWidth: "80%", margin: "0 auto", textAlign: "center" }}>
                 <AbCampoTexto value={textoBusca} onChange={setTextoBusca} placeholder="Digite o titulo..." />
                 <div style={{ marginTop: "16px" }}>
                     <AbBotao texto="Bucar" />
