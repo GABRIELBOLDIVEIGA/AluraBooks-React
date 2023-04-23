@@ -4,24 +4,29 @@ import { ICategoria } from "../../interfaces/ICategoria";
 import { AbBotao, AbCampoTexto } from "ds-alurabooks";
 import { useState } from "react";
 import { useLivros } from "../../graphQL/livros/hooks";
+import { livrosVar } from "../../graphQL/livros/state";
+import { useReactiveVar } from "@apollo/client";
 
 interface ListaLivrosProps {
     categoria: ICategoria;
 }
 
 const ListaLivros = ({ categoria }: ListaLivrosProps) => {
-    const { data, refetch } = useLivros(categoria);
-
     const [textoBusca, setTextoBusca] = useState("");
+
+    /* const {  data,  refetch } = */ useLivros(categoria);
+
+    const livros = useReactiveVar(livrosVar);
+    console.log("Livros => ", livros);
 
     const buscarLivros = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (textoBusca) {
-            refetch({
-                categoriaId: categoria.id,
-                titulo: textoBusca,
-            });
+            // refetch({
+            //     categoriaId: categoria.id,
+            //     titulo: textoBusca,
+            // });
         }
     };
 
@@ -34,7 +39,7 @@ const ListaLivros = ({ categoria }: ListaLivrosProps) => {
                 </div>
             </form>
             <div className="livros">
-                {data?.livros.map((livro) => (
+                {livros.map((livro) => (
                     <CardLivro livro={livro} key={livro.id} />
                 ))}
             </div>
