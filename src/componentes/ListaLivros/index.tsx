@@ -19,12 +19,7 @@ const ListaLivros = ({ categoria }: ListaLivrosProps) => {
             ...filtroDeLivrosVar(),
             titulo: textoBusca.length >= 3 ? textoBusca : "",
         });
-
-        if(textoBusca.length >= 3) {
-            console.log("definir o titulo")
-        }
-
-    },[textoBusca])
+    }, [textoBusca]);
 
     filtroDeLivrosVar({
         ...filtroDeLivrosVar(),
@@ -39,9 +34,6 @@ const ListaLivros = ({ categoria }: ListaLivrosProps) => {
         <section>
             <form style={{ maxWidth: "80%", margin: "0 auto", textAlign: "center" }}>
                 <AbCampoTexto value={textoBusca} onChange={setTextoBusca} placeholder="Digite o titulo..." />
-                <div style={{ marginTop: "16px" }}>
-                    <AbBotao texto="Bucar" />
-                </div>
             </form>
             <div className="livros">
                 {livros.map((livro) => (
