@@ -1,13 +1,12 @@
 import { makeVar } from "@apollo/client";
-import { ILivro } from "../../interfaces/ILivro";
 import { ICategoria } from "../../interfaces/ICategoria";
+import { ILivro } from "../../interfaces/ILivro";
 
-
-interface FiltroDeLivros {
+interface FiltroLivros {
     categoria?: ICategoria,
     titulo?: string
 }
 
-export const filtroDeLivrosVar = makeVar<FiltroDeLivros>({})
+export const filtroLivrosVar = makeVar<FiltroLivros>({})
 
-export const livrosVar = makeVar<ILivro[]>([]);
+export const livrosVar = makeVar<ILivro[]>([])

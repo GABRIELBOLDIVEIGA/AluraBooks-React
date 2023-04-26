@@ -599,6 +599,16 @@
           "livroId": 2,
           "opcaoCompraId": 1,
           "quantidade": 1
+        },
+        {
+          "livroId": 1,
+          "opcaoCompraId": 1,
+          "quantidade": 1
+        },
+        {
+          "livroId": 3,
+          "opcaoCompraId": 1,
+          "quantidade": 3
         }
       ],
       "total": 89.8
