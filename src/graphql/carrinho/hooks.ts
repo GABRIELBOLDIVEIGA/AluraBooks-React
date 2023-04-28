@@ -1,11 +1,25 @@
-import { useMutation, useQuery } from "@apollo/client"
-import { ICarrinho } from "../../interfaces/ICarrinho"
-import { ADICIONAR_ITEM, OBTER_CARRINHO } from "./queries"
+import { useMutation, useQuery } from "@apollo/client";
+import { ICarrinho } from "../../interfaces/ICarrinho";
+import { ADICIONAR_ITEM, OBTER_CARRINHO, REMOVER_ITEM } from "./queries";
 
 export const useCarrinho = () => {
-    return useQuery<{ carrinho: ICarrinho }>(OBTER_CARRINHO)
-}
+    return useQuery<{ carrinho: ICarrinho }>(OBTER_CARRINHO);
+};
 
 export const useAdicionarItem = () => {
-    return useMutation(ADICIONAR_ITEM)
-}
+    return useMutation(ADICIONAR_ITEM, {
+        refetchQueries: [
+            // OBTER_CARRINHO
+            "ObterCarrinho",
+        ],
+    });
+};
+
+export const useRemoverItem = () => {
+    return useMutation(REMOVER_ITEM, {
+        refetchQueries: [
+            // OBTER_CARRINHO
+            "ObterCarrinho",
+        ],
+    });
+};

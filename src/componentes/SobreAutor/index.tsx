@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { obterAutor } from "../../http"
+import { obterAutor } from "../../axios"
 import BlocoSobre from "../BlocoSobre"
 
 interface SobreAutorProps {

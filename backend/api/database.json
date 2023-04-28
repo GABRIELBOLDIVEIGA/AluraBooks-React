@@ -537,71 +537,37 @@
       "id": 1,
       "itens": [
         {
-          "livroId": 4,
+          "livroId": 3,
           "opcaoCompraId": 1,
-          "quantidade": 1,
-          "livro": {
-            "id": 4,
-            "categoriaId": 3,
-            "tagIds": [
-              5,
-              6
-            ],
-            "titulo": "Bootstrap 4",
-            "slug": "bootstrap-4",
-            "descricao": "Conheça a biblioteca front-end mais utilizada no mundo",
-            "isbn": "978-85-94188-60-1",
-            "numeroPaginas": 172,
-            "publicacao": "2018-05-01",
-            "imagemCapa": "https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/bootstrap4.png",
-            "autorId": 4,
-            "opcoesCompra": [
-              {
-                "id": 1,
-                "titulo": "E-book",
-                "preco": 29.9,
-                "formatos": [
-                  ".pdf",
-                  ".pub",
-                  ".mob"
-                ]
-              },
-              {
-                "id": 2,
-                "titulo": "Impresso",
-                "preco": 39.9
-              },
-              {
-                "id": 3,
-                "titulo": "E-book + Impresso",
-                "preco": 59.9,
-                "formatos": [
-                  ".pdf",
-                  ".pub",
-                  ".mob"
-                ]
-              }
-            ],
-            "sobre": "Fazer um site elegante nunca foi tão fácil, mesmo para quem não sabe escrever uma linha de CSS e, muito menos, entende como harmonizar cores, balancear elementos e tipografia. O Bootstrap é, resumidamente, um grande arquivo CSS com uma excelente documentação, que possui dezenas e dezenas de componentes prontos. No começo, foi criado pelo Twitter para servir como um guia de estilos em CSS da empresa; hoje, é a biblioteca mais famosa e utilizada no mundo."
-          },
-          "opcaoCompra": {
-            "id": 1,
-            "titulo": "E-book",
-            "preco": 29.9,
-            "formatos": [
-              ".pdf",
-              ".pub",
-              ".mob"
-            ]
-          }
+          "quantidade": 1
+        },
+        {
+          "livroId": 8,
+          "opcaoCompraId": 2,
+          "quantidade": 2
+        },
+        {
+          "livroId": 9,
+          "opcaoCompraId": 3,
+          "quantidade": 3
+        },
+        {
+          "livroId": 1,
+          "opcaoCompraId": 1,
+          "quantidade": 4
         },
         {
           "livroId": 2,
-          "opcaoCompraId": 1,
-          "quantidade": 1
+          "opcaoCompraId": 2,
+          "quantidade": 5
+        },
+        {
+          "livroId": 4,
+          "opcaoCompraId": 3,
+          "quantidade": 6
         }
       ],
-      "total": 89.8
+      "total": 39.9
     }
   ],
   "tags": [

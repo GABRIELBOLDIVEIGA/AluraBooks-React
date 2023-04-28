@@ -1,27 +1,30 @@
 import { createContext, ReactElement, useContext } from "react";
-import { useCarrinho, useAdicionarItem } from "../../graphql/carrinho/hooks";
+import { useCarrinho, useAdicionarItem, useRemoverItem } from "../../graphql/carrinho/hooks";
 import { ICarrinho } from "../../interfaces/ICarrinho";
 import { IItemCarrinho } from "../../interfaces/IItemCarrinho";
 
-
 export interface ICarrinhoContext {
-    carrinho?: ICarrinho
-    adicionarItemCarrinho: (item: IItemCarrinho) => void
+    carrinho?: ICarrinho;
+    adicionarItemCarrinho: (item: IItemCarrinho) => void;
+    removerItemCarrinho: (item: IItemCarrinho) => void;
+    carregando: boolean
 }
 
 export const CarrinhoContext = createContext<ICarrinhoContext>({
-    adicionarItemCarrinho: () => null
-})
+    adicionarItemCarrinho: () => null,
+    removerItemCarrinho: () => null,
+    carregando: false
+});
 
 interface CarrinhoProviderProps {
-    children: ReactElement
+    children: ReactElement;
 }
 
-const CarrinhoProvider = ({ children } : CarrinhoProviderProps) => {
-    
-    const { data } = useCarrinho()
+const CarrinhoProvider = ({ children }: CarrinhoProviderProps) => {
+    const { data, loading: loadingCarrinho } = useCarrinho();
 
-    const [adicionaItem] = useAdicionarItem()
+    const [adicionaItem, { loading: loadingAdiciona }] = useAdicionarItem();
+    const [removerItem] = useRemoverItem();
 
     const adicionarItemCarrinho = (item: IItemCarrinho) => {
         adicionaItem({
@@ -29,24 +32,38 @@ const CarrinhoProvider = ({ children } : CarrinhoProviderProps) => {
                 item: {
                     livroId: item.livro.id,
                     opcaoCompraId: item.opcaoCompra.id,
-                    quantidade: item.quantidade
-                }
-            }
-        })
-    }
+                    quantidade: item.quantidade,
+                },
+            },
+        });
+    };
 
-    return (
-        
-        <CarrinhoContext.Provider 
-            value={{ carrinho: data?.carrinho, adicionarItemCarrinho }}
-        >
-            {children}
-        </CarrinhoContext.Provider>
-    )
-}
+    const removerItemCarrinho = (item: IItemCarrinho) => {
+        console.log("[CarrinhoProvider] - removerItemCarrinho", item)
+
+        removerItem({
+            variables: {
+                item: {
+                    livroId: item.livro.id,
+                    opcaoCompraId: item.opcaoCompra.id,
+                    quantidade: item.quantidade,
+                },
+            },
+        });
+    };
+
+    return <CarrinhoContext.Provider value={{ 
+        carrinho: data?.carrinho, 
+        adicionarItemCarrinho, 
+        removerItemCarrinho,
+        carregando: loadingCarrinho || loadingAdiciona
+    }}>
+        {children}
+    </CarrinhoContext.Provider>;
+};
 
 export const useCarrinhoContext = () => {
-    return useContext<ICarrinhoContext>(CarrinhoContext)
-}
+    return useContext<ICarrinhoContext>(CarrinhoContext);
+};
 
-export default CarrinhoProvider
+export default CarrinhoProvider;

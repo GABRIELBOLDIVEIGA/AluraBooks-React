@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import ListaLivros from "../../componentes/ListaLivros"
 import Loader from "../../componentes/Loader"
 import TituloPrincipal from "../../componentes/TituloPrincipal"
-import { obterCategoriaPorSlug } from "../../http"
+import { obterCategoriaPorSlug } from "../../axios"
 
 const Categoria = () => {
 

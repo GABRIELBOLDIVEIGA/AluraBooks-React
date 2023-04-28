@@ -1,17 +1,36 @@
-import { AbInputQuantidade } from "ds-alurabooks"
-import { IItemCarrinho } from "../../../interfaces/IItemCarrinho"
-import { formatador } from "../../../utils/formatador-moeda"
+import { AbInputQuantidade } from "ds-alurabooks";
+import { IItemCarrinho } from "../../../interfaces/IItemCarrinho";
+import { formatador } from "../../../utils/formatador-moeda";
 
-import lixeira from './assets/lixeira.png'
+import lixeira from "./assets/lixeira.png";
 
-import './ItemCarrinho.css'
+import "./ItemCarrinho.css";
+import { useCarrinhoContext } from "../../../contextApi/carrinho";
 
 interface ItemCarrinhoProps {
-    item: IItemCarrinho
+    item: IItemCarrinho;
 }
 
-const ItemCarrinho = ({ item } : ItemCarrinhoProps) => {
+const ItemCarrinho = ({ item }: ItemCarrinhoProps) => {
+    const { adicionarItemCarrinho, removerItemCarrinho } = useCarrinhoContext();
 
+    const alterarQuantidadeDoItem = (quantidade: number) => {
+        if (quantidade === 0) {
+            console.log("[ItemCarrinho] - alterarQuantidadeDoItem()")
+            removerItemCarrinho({
+                livro: item.livro,
+                opcaoCompra: item.opcaoCompra,
+                quantidade: quantidade,
+            });
+            return
+        }
+
+        adicionarItemCarrinho({
+            livro: item.livro,
+            opcaoCompra: item.opcaoCompra,
+            quantidade: quantidade,
+        });
+    };
 
     return (
         <div className="item-carrinho">
@@ -30,13 +49,11 @@ const ItemCarrinho = ({ item } : ItemCarrinhoProps) => {
                     <li className="label">
                         <strong>Preço:</strong>
                     </li>
-                    <li className="valor">
-                        {formatador.format(item.opcaoCompra.preco)}
-                    </li>
+                    <li className="valor">{formatador.format(item.opcaoCompra.preco)}</li>
                 </ul>
             </div>
             <div className="quantidade">
-                <AbInputQuantidade value={item.quantidade} onChange={() => console.log('[AbInputQuantidade] - onChange')}/>
+                <AbInputQuantidade value={item.quantidade} onChange={(quantidadeAtual) => alterarQuantidadeDoItem(quantidadeAtual)} />
             </div>
             <div>
                 <button className="btn-excluir">
@@ -44,7 +61,7 @@ const ItemCarrinho = ({ item } : ItemCarrinhoProps) => {
                 </button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ItemCarrinho
+export default ItemCarrinho;

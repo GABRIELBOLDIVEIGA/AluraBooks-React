@@ -1,0 +1,30 @@
+https://cursos.alura.com.br/course/react-combinando-context-api-apollo-client/task/122016
+
+O useLazyQuery é um hook que permite que você execute consultas de forma "preguiçosa", ou seja, só quando são realmente necessárias. Isso é útil em aplicações que possuem muitos dados ou consultas que só são executadas em determinadas condições, pois evita o carregamento desnecessário de dados e consultas.
+
+Mas afinal, qual a diferença entre o useLazyQuery e o useQuery? Bem, a principal diferença é que o useLazyQuery só executa a consulta quando é chamado explicitamente, enquanto o useQuery executa a consulta assim que é definido. Isso significa que o useLazyQuery é mais indicado para consultas que só são necessárias em determinadas condições ou em resposta a uma ação do usuário, enquanto o useQuery é mais indicado para consultas que são necessárias assim que a página é carregada.
+
+Exemplo de uso do useLazyQuery:
+
+const [getPosts, { data, error, loading, refetch }] = useLazyQuery(GET_POSTS);
+
+const handleClick = () => {
+  getPosts({ variables: { userId: loggedInUserId } });
+};
+
+return (
+  <div>
+    <button onClick={handleClick}>Carregar posts</button>
+    {loading && <p>Carregando...</p>}
+    {error && <p>Ocorreu um erro: {error.message}</p>}
+    {data && data.posts.map(post => (
+      <div key={post.id}>
+        <h3>{post.title}</h3>
+        <p>{post.body}</p>
+      </div>
+    ))}
+  </div>
+);COPIAR CÓDIGO
+Neste exemplo, a consulta só é executada quando o usuário clica no botão "Carregar posts". Isso é útil em casos em que a consulta não é necessária assim que a página é carregada, mas sim em resposta a uma ação do usuário.
+
+Por hoje é só, até a próxima :)

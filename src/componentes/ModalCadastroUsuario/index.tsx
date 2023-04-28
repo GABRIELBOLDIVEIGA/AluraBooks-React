@@ -4,7 +4,7 @@ import { useState } from "react"
 import imagemPrincipal from './assets/login.png'
 
 import './ModalCadastroUsuario.css'
-import http from "../../http"
+import http from "../../axios"
 
 interface PropsModalCadastroUsuario {
     aberta: boolean

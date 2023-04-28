@@ -1,6 +1,6 @@
 import { AbBotao, AbCampoTexto, AbModal } from "ds-alurabooks"
 import { useState } from "react"
-import http from "../../http"
+import http from "../../axios"
 
 import imagemPrincipal from './assets/login.png'
 

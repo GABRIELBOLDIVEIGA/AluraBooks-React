@@ -1,7 +1,7 @@
 import { AbBotao } from "ds-alurabooks"
 import { useEffect, useState } from "react"
 import { IPedido } from "../../interfaces/IPedido"
-import http from "../../http"
+import http from "../../axios"
 import './Pedidos.css'
 
 const Pedidos = () => {

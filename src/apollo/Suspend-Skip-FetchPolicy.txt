@@ -1,0 +1,44 @@
+https://cursos.alura.com.br/course/react-combinando-context-api-apollo-client/task/122009
+
+No Apollo Client, existem algumas opções podem ser usadas para melhorar a performance da sua aplicação. Vou te explicar algumas delas a seguir:
+
+suspend: A opção suspend permite que a consulta seja suspensa até que uma determinada condição seja atendida. Isso é útil em casos em que a consulta só precisa ser executada quando um determinado dado estiver disponível, como por exemplo, quando o usuário estiver autenticado ou quando um filtro for aplicado.
+Exemplo:
+
+const { data, error, loading, refetch } = useQuery(OBTER_POSTS, {
+  variables: {
+    usuarioId: usuarioLogadoId,
+  },
+  suspend: !usuarioLogadoId
+});COPIAR CÓDIGO
+skip: A opção skip permite que a consulta seja pulada completamente se uma determinada condição for atendida. Isso é útil em casos em que a consulta só deve ser executada em determinadas condições, como por exemplo, quando o usuário estiver autenticado ou quando um filtro for aplicado.
+Exemplo:
+
+const { data, error, loading, refetch } = useQuery(OBTER_POSTS, {
+  variables: {
+    usuarioId: usuarioLogadoId
+  },
+  skip: !usuarioLogadoId
+});COPIAR CÓDIGO
+fetchPolicy: A opção fetchPolicy permite que você escolha como a consulta deve ser executada e quando os dados devem ser atualizados. As opções disponíveis são cache-first, cache-and-network, network-only e cache-only.
+Exemplo:
+
+const { data, error, loading, refetch } = useQuery(OBTER_POSTS, {
+  variables: {
+    usuarioId: usuarioLogadoId
+  },
+  fetchPolicy: 'cache-and-network'
+});COPIAR CÓDIGO
+Bora dar uma olhada mais a fundo em cada uma dessas opções?
+
+cache-first: A opção cache-first faz com que a consulta seja executada a partir dos dados em cache, e só então a partir da rede. Isso é útil em casos em que os dados em cache são suficientes e não há necessidade de atualizá-los frequentemente.
+
+cache-and-network: A opção cache-and-network faz com que a consulta seja executada a partir dos dados em cache, mas também faz uma nova requisição para atualizar os dados em segundo plano. Isso é útil em casos em que os dados em cache são suficientes, mas é importante manter eles atualizados.
+
+network-only: essa opção faz com que a consulta seja executada apenas a partir da rede e não utilize os dados em cache. Isso é útil em casos em que os dados precisam ser atualizados frequentemente ou quando os dados em cache são inválidos ou desatualizados.
+
+cache-only: A opção cache-only faz com que a consulta seja executada apenas a partir dos dados em cache e não faça uma nova requisição. Isso é útil em casos em que os dados em cache são suficientes e não há necessidade de atualizá-los.
+
+Essas são umas das principais opções disponíveis no Apollo Client. É importante lembrar que o uso dessas opções deve ser feito de forma consciente, para evitar problemas de performance ou de dados incorretos.
+
+Na dúvida, deixa um post no fórum do curso que eu vou tentar te ajudar :)
