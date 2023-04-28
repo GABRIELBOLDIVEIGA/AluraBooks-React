@@ -22,8 +22,6 @@ const LivrosDestaque = ({ livros }: LivrosDestaqueProps) => {
 
     const valorMinimo = selecionado ? Math.min(...selecionado.opcoesCompra.map(op => op.preco)) : 0
 
-    console.log(livros)
-
     return (<section className="LivrosDestaque">
         <div>
             <ul className="livros">
@@ -46,7 +44,7 @@ const LivrosDestaque = ({ livros }: LivrosDestaqueProps) => {
                 </header>
                 <h6>{selecionado?.titulo}</h6>
                 <p>{selecionado?.descricao}</p>
-                <p>Por: {selecionado?.autor?.nome}</p>
+                <p>Por: {selecionado?.autor.nome}</p>
                 <footer>
                     <div className="preco">
                         <em>A partir de:</em>
