@@ -11,8 +11,7 @@
 }
 
 .ab-navbar ul {
-    display: flex;
-    align-items: center;
+    display: inline-block;
 }
 
 .ab-navbar {
